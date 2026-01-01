@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  web:
+    build:
+      context: .
+      target: dev
+    # Bind-mount the project into the container so file edits on the host are visible
+    volumes:
+      - ./:/app:cached
+
+    environment:
+      - FLASK_ENV=development
+      - FLASK_APP=app.py
+      - PYTHONUNBUFFERED=1
+      # Optional: enable polling-based reloader if inotify isn't working on your host
+      # Set WATCHDOG_USE_POLLING=1 in `.env` to enable watchmedo polling
+      - WATCHDOG_USE_POLLING=${WATCHDOG_USE_POLLING:-0}
+      - SERVICE=flask
+    ports:
+      - "5000:5000"
+    # Use the dev entrypoint in the dev image to choose the appropriate runner (and polling mode)
+
+  streamlit:
+    build:
+      context: .
+      target: dev
+    # Run a Streamlit service for the UI, bind-mount project for live updates
+    volumes:
+      - ./:/app:cached
+    ports:
+      - "8501:8501"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - WATCHDOG_USE_POLLING=${WATCHDOG_USE_POLLING:-0}
+      - SERVICE=streamlit
+    # Use the dev entrypoint to allow optional polling fallback for the Streamlit process
+
+
+# Note:
+# - Compose automatically picks up docker-compose.override.yml locally. Use `docker compose up --build` to start dev services.
+# - If your host filesystem doesn't support inotify (e.g., some VM/shared folders), consider installing watchdog (add to requirements
+#   or use a dev image) and set WATCHDOG_USE_POLLING=1 for Flask's reloader to use polling.

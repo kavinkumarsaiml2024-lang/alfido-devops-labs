@@ -1,0 +1,21 @@
+devops-control-plane/
+│
+├── core/
+│   ├── metrics.py        # System metrics engine
+│   ├── executor.py       # Secure command execution layer
+│   ├── health.py         # Health & readiness checks
+│   ├── config.py         # Environment-based config
+│
+├── infra/
+│   ├── logger.py         # Structured logging (JSON)
+│
+├── ui/
+│   └── dashboard.py      # Streamlit frontend
+│
+├── logs/
+│   └── app.json.log
+│
+├── requirements.txt
+├── Dockerfile
+├── .dockerignore
+└── README.md

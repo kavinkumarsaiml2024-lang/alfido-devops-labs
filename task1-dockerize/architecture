@@ -1,0 +1,17 @@
+┌───────────────────────────┐
+│        Streamlit UI        │
+│  (Control Plane Frontend)  │
+└─────────────▲─────────────┘
+              │
+┌─────────────┴─────────────┐
+│   Core DevOps Services     │
+│  - Metrics Collector       │
+│  - Command Executor        │
+│  - Log Manager             │
+│  - Health Checker          │
+└─────────────▲─────────────┘
+              │
+┌─────────────┴─────────────┐
+│  Linux Runtime (Container) │
+│  psutil, subprocess, fs    │
+└───────────────────────────┘

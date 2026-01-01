@@ -1,0 +1,5 @@
+flask
+streamlit
+psutil
+psycopg2-binary
+sqlalchemy
